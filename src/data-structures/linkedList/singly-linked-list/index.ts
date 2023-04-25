@@ -9,10 +9,12 @@ export class LinkedList<T> {
 
   // ** Traversing through the linkedList - O(n) */
   display(): void {
-    while (this.head !== null) {
-      console.log(this.head.data)
-      this.head = this.head.next
+    let current = this.head
+    while (current !== null) {
+      process.stdout.write(`${current.data} ${current.next ? '-> ' : ''}`)
+      current = current.next
     }
+    process.stdout.write('\n')
   }
 
   // ** Adding element to the front of the list - O(1) */
@@ -23,10 +25,18 @@ export class LinkedList<T> {
   }
 
   // ** Inserting element at the end of list - O(n) */
-  insertTail(el: SinglyNode<T>): void {
-    if (this.head === null) {
-      this.head = el
+  insertTail(el: SinglyNode<T>): SinglyNode<T> {
+    let current = this.head
+
+    if (current === null) {
+      current = el
+      return el
     }
+    while (current.next !== null) {
+      current = current.next
+    }
+    current.next = el
+    return el
   }
 }
 
